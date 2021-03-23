@@ -1,12 +1,17 @@
 class Passerelle {
     companion object {
-        fun chargerLesEquipements(idBat: Int): ArrayList<Equipement> {
+        private fun chargerLesEquipements(idBat: Int): ArrayList<Equipement> {
             val jeu =
                 JeuEnregistrement("SELECT id, lib FROM equipement JOIN posseder ON equipement.id = posseder.idEquip WHERE idBat = $idBat")
             val collecEquipement: ArrayList<Equipement> = ArrayList()
             do {
                 jeu.suivant()
-                collecEquipement.add(Equipement(jeu.getValeur("id").toInt(), jeu.getValeur("lib")))
+                collecEquipement.add(
+                    Equipement(
+                        jeu.getValeur("id").toInt(),
+                        jeu.getValeur("lib")
+                    )
+                )
             } while (!jeu.fin())
             return collecEquipement
         }
